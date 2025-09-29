@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Models\Comment;
+use App\Notifications\CommentNotification;
 use Filament\Notifications\Notification;
 
 class CommentObserver
@@ -17,6 +18,8 @@ class CommentObserver
             ->body($comment->body)
             ->success()
             ->sendToDatabase($comment->commentable->user);
+
+        $comment->commentable->user->notify(new CommentNotification($comment));
     }
 
     /**
