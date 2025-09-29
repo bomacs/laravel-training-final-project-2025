@@ -28,6 +28,9 @@ class AppPanelProvider extends PanelProvider
     {
         return $panel
             ->default()
+            // ->topNavigation()
+            ->databaseNotifications()
+            ->sidebarCollapsibleOnDesktop()
             ->id('app')
             ->path('app')
             ->login()
