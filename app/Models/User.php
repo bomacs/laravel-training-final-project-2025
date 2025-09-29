@@ -8,17 +8,20 @@ use Filament\Auth\MultiFactor\App\Contracts\HasAppAuthentication;
 use Filament\Auth\MultiFactor\App\Contracts\HasAppAuthenticationRecovery;
 use Filament\Auth\MultiFactor\Email\Contracts\HasEmailAuthentication;
 use Filament\Models\Contracts\FilamentUser;
+use Filament\Models\Contracts\HasAvatar;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Storage;
 
 class User extends Authenticatable implements
     FilamentUser,
     HasAppAuthentication,
     HasAppAuthenticationRecovery,
     HasEmailAuthentication,
-    MustVerifyEmail
+    MustVerifyEmail,
+    HasAvatar
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
@@ -35,6 +38,7 @@ class User extends Authenticatable implements
         'app_authentication_secret',
         'app_authentication_recovery_codes',
         'has_email_authentication',
+        'avatar',
     ];
 
     /**
@@ -128,5 +132,10 @@ class User extends Authenticatable implements
 
         $this->has_email_authentication = $condition;
         $this->save();
+    }
+
+    public function getFilamentAvatarUrl(): ?string
+    {
+        return $this->avatar ? Storage::url($this->avatar) : null;
     }
 }
