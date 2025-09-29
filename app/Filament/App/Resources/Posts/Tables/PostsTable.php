@@ -2,6 +2,7 @@
 
 namespace App\Filament\App\Resources\Posts\Tables;
 
+use App\Models\User;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
@@ -10,6 +11,8 @@ use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\Layout\Stack;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Kirschbaum\Commentions\Filament\Actions\CommentsAction;
+use Kirschbaum\Commentions\Filament\Actions\CommentsTableAction;
 
 class PostsTable
 {
@@ -37,6 +40,9 @@ class PostsTable
             ->recordActions([
                 ViewAction::make(),
                 EditAction::make(),
+                CommentsAction::make()
+                    ->mentionables(User::all())
+
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

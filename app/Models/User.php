@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Storage;
+use Kirschbaum\Commentions\Contracts\Commenter;
 
 class User extends Authenticatable implements
     FilamentUser,
@@ -21,7 +22,8 @@ class User extends Authenticatable implements
     HasAppAuthenticationRecovery,
     HasEmailAuthentication,
     MustVerifyEmail,
-    HasAvatar
+    HasAvatar,
+    Commenter
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
