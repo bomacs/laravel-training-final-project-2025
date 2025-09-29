@@ -4,6 +4,7 @@ namespace App\Filament\App\Resources\Posts\Tables;
 
 use App\Models\User;
 use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
@@ -40,6 +41,7 @@ class PostsTable
             ->recordActions([
                 ViewAction::make(),
                 EditAction::make(),
+                DeleteAction::make(),
                 CommentsAction::make()
                     ->mentionables(User::all())
 
